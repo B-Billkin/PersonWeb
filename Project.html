@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow's Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #F5F5F5;
+            --main-text: #4a2c2a;
+            --accent-pink: #FFD1DC;
+            --accent-green: #98FB98;
+            --accent-blue: #ADD8E6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'ZCOOL KuaiLe', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--main-text);
+            overflow-x: hidden;
+        }
+
+        .watercolor-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('picture/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #F5F5F5;
+        }
+
+        .main-container {
+            width: 95%;
+            max-width: 1400px;
+            background-color: #FFF9E5; /* 暖黄色不透明 */
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.25);
+            margin: 40px 0;
+            min-height: 80vh;
+        }
+
+        header {
+            padding: 16px 64px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            background: rgba(26, 26, 26, 1);
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(255,182,193,0.5);
+            line-height: 1;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00F0FF;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        /* 点亮 PROJECT 导航 */
+        nav ul li:nth-child(2) a {
+            color: #00F0FF;
+            opacity: 1;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
+        }
+
+        .content-section {
+            padding: 60px 64px 100px 64px; 
+            display: grid;
+            grid-template-columns: repeat(2, 500px); /* 宽度改为 500px */
+            justify-content: center;
+            gap: 60px 80px; /* 增加行间距和列间距 */
+            flex-grow: 1;
+            align-items: flex-start;
+        }
+
+        .project-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .card {
+            width: 500px; /* 宽改为 500px */
+            height: 400px; /* 高改为 400px */
+            perspective: 1500px; /* 3D 视距 */
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            border: 4px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        /* 正面：显示图片 */
+        .card-front {
+            background: #fff;
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+            opacity: 0.9;
+        }
+
+        /* 背面：纯白卡片内容排版 */
+        .card-back {
+            background: #ffffff;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            padding: 40px 30px;
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .back-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #00F0FF;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .back-section {
+            margin-bottom: 20px;
+        }
+
+        .back-section h4 {
+            font-size: 0.9rem;
+            color: #00F0FF;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .back-section p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            margin: 0;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto; /* 标签推到底部 */
+        }
+
+        .tag {
+            background: rgba(0, 240, 255, 0.08);
+            color: #008899;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: #00F0FF;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .card:hover .card-face {
+            border-color: #00F0FF;
+        }
+
+        .project-label {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 1.2rem;
+            color: var(--main-text);
+            letter-spacing: 0.2em;
+            opacity: 0.8;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 40px 30px; flex-direction: column; gap: 30px; }
+            .logo { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="watercolor-bg"></div>
+
+    <div class="main-container">
+        <header>
+            <a href="PWeb.html" class="logo">Hollow</a>
+            <nav>
+                <ul>
+                    <li><a href="Self.html">SELF</a></li>
+                    <li><a href="Project.html">PROJECT</a></li>
+                    <li><a href="Share.html">SHARE</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="content-section">
+            <!-- Project 1: SFT -->
+            <div class="project-item">
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <img src="picture/cloud1.jpg" alt="SFT项目">
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 class="back-title">SFT Project</h3>
+                            <div class="back-section">
+                                <h4>职责</h4>
+                                <p>负责大语言模型的监督微调训练</p>
+                            </div>
+                            <div class="back-section">
+                                <h4>数据处理</h4>
+                                <p>收集高质量对话数据，清洗低质量内容，构建结构化训练集，处理数据平衡问题</p>
+                            </div>
+                            <div class="tag-container">
+                                <span class="tag">数据治理</span>
+                                <span class="tag">模型训练</span>
+                                <span class="tag">NLP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-label">SFT 项目</div>
+            </div>
+
+            <!-- Project 2: RAG -->
+            <div class="project-item">
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <img src="picture/cloud2.jpg" alt="RAG项目">
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 class="back-title">RAG Project</h3>
+                            <div class="back-section">
+                                <h4>职责</h4>
+                                <p>构建知识检索增强系统</p>
+                            </div>
+                            <div class="back-section">
+                                <h4>数据处理</h4>
+                                <p>文档解析与分块，创建向量索引，处理知识图谱构建，优化检索相关性</p>
+                            </div>
+                            <div class="tag-container">
+                                <span class="tag">知识管理</span>
+                                <span class="tag">检索系统</span>
+                                <span class="tag">向量数据库</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-label">RAG 项目</div>
+            </div>
+
+            <!-- Project 3: 文生图 -->
+            <div class="project-item">
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <img src="picture/cloud3.jpg" alt="文生图项目">
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 class="back-title">Text-to-Image</h3>
+                            <div class="back-section">
+                                <h4>职责</h4>
+                                <p>管理图像生成模型训练</p>
+                            </div>
+                            <div class="back-section">
+                                <h4>数据处理</h4>
+                                <p>图像数据集构建，风格标注，分辨率标准化，处理版权合规性</p>
+                            </div>
+                            <div class="tag-container">
+                                <span class="tag">计算机视觉</span>
+                                <span class="tag">图像生成</span>
+                                <span class="tag">创意AI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-label">文生图项目</div>
+            </div>
+
+            <!-- Project 4: TTS -->
+            <div class="project-item">
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <img src="picture/cloud4.jpg" alt="TTS项目">
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 class="back-title">TTS Project</h3>
+                            <div class="back-section">
+                                <h4>职责</h4>
+                                <p>开发文本转语音系统</p>
+                            </div>
+                            <div class="back-section">
+                                <h4>数据处理</h4>
+                                <p>语音数据采集，音素标注，音频降噪处理，情感语调标注</p>
+                            </div>
+                            <div class="tag-container">
+                                <span class="tag">语音技术</span>
+                                <span class="tag">音频处理</span>
+                                <span class="tag">自然语音</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-label">TTS 项目</div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

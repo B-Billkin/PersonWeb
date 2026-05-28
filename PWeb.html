@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow's  Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #F5F5F5;
+            --main-text: #4a2c2a;
+            --accent-pink: #FFD1DC;
+            --accent-green: #98FB98;
+            --accent-blue: #ADD8E6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'ZCOOL KuaiLe', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--main-text);
+            overflow-x: hidden;
+        }
+
+        /* 使用用户提供的图片作为直接背景 */
+        .watercolor-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('picture/bg.jpg'); /* 更新路径 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #F5F5F5;
+        }
+
+        /* 移除之前模拟的斑点样式，保持代码整洁 */
+        .watercolor-spot {
+            display: none;
+        }
+
+        /* 主容器：进一步拉宽以增加卡片占比 */
+        .main-container {
+            width: 95%;
+            max-width: 1400px; /* 从 1200px 提升至 1400px */
+            background-color: transparent;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        /* 顶部导航：进一步压缩高度，保持开阔 */
+        header {
+            padding: 16px 64px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem; /* 更加精致 */
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(255,182,193,0.5);
+            line-height: 1;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.8rem; /* 缩小导航文字 */
+            opacity: 0.7;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        nav ul li a:hover {
+            color: #00F0FF; /* 亮蓝色悬浮效果 */
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        .search-bar {
+            background: rgba(255,255,255,0.06);
+            border-radius: 30px;
+            padding: 4px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+            font-size: 0.75rem;
+            width: 110px;
+        }
+
+        /* 内容区布局：显著提升卡片占比与饱满度 */
+        .content-section {
+            padding: 60px 64px 80px 64px; 
+            display: flex;
+            justify-content: center;
+            gap: 40px; 
+            flex-grow: 1;
+            align-items: flex-start; /* 顶部对齐 */
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 50px;
+            padding: 28px; /* 统一内边距 */
+            width: 450px; /* 统一等宽 */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 4px solid transparent;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer; /* 增加手型光标，提示可点击 */
+            text-decoration: none; /* 移除链接下划线 */
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--accent-pink);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.18);
+        }
+
+        .card-title {
+            font-family: 'Caveat', cursive;
+            font-size: 28px; /* 标题字号统一为 28px */
+            margin-bottom: 4px;
+            color: var(--main-text);
+            line-height: 1.2;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .card-subtitle {
+            font-size: 0.75rem;
+            color: rgba(0,0,0,0.2);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .card-subtitle::after, .card-subtitle::before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(0,0,0,0.05);
+        }
+
+        /* 插画网格：等比例放大图片尺寸 */
+        .illustration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px; /* 网格间距对齐 */
+            width: 100%;
+        }
+
+        .illus-box {
+            aspect-ratio: 1 / 1; /* 强制 1:1 正方形 */
+            background-color: #f9f9f9;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .illus-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(0.9) brightness(1.05) sepia(0.05);
+            mix-blend-mode: multiply;
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .illus-box img {
+            opacity: 1;
+        }
+
+        /* 装饰性点缀：顶部小圆点对齐 */
+        .doodle-dot {
+            position: absolute;
+            width: 6px; height: 6px;
+            background: var(--main-text);
+            border-radius: 50%;
+            top: 14px; /* 距离顶部统一 */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 底部：与页头呼应 */
+        footer {
+            padding: 16px 64px; /* 高度收窄，与导航条呼应 */
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255,255,255,0.9); /* 大幅提高亮度，接近纯白 */
+            font-size: 1.1rem; /* 再次调大字体，确保清晰可见 */
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 1.4rem; /* 稍微放大图标 */
+            opacity: 0.5;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            color: var(--accent-pink);
+            transform: translateY(-5px) scale(1.2);
+            filter: drop-shadow(0 0 8px rgba(255, 209, 220, 0.6));
+        }
+
+        /* 二维码弹窗样式 */
+        .qr-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .qr-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .qr-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .qr-modal.active .qr-content {
+            transform: scale(1);
+        }
+
+        .qr-content img {
+            width: 240px;
+            height: 240px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .qr-content p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            color: var(--main-text);
+            margin: 0;
+        }
+
+        .close-qr {
+            position: absolute;
+            top: 20px; right: 20px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        .close-qr:hover { opacity: 1; transform: rotate(90deg); }
+
+        /* 响应式调整 */
+        @media (max-width: 1100px) {
+            .content-section { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .content-section { grid-template-columns: 1fr; padding: 30px; }
+            header { padding: 40px 30px; flex-direction: column; gap: 30px; }
+            .logo { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="watercolor-bg"></div>
+
+    <div class="main-container">
+        <header>
+            <a href="PWeb.html" class="logo">Hollow</a>
+            <nav>
+                <ul>
+                    <li><a href="Self.html">Self</a></li>
+                    <li><a href="Project.html">Project</a></li>
+                    <li><a href="Share.html">Share</a></li>
+                </ul>
+            </nav>
+           
+        </header>
+
+        <section class="content-section">
+            <!-- Card 1: Self Style -->
+            <a href="Self.html" class="card">
+                <div class="doodle-dot" style="left: 50%;"></div>
+                <h2 class="card-title">Self</h2>
+                <p class="card-subtitle">Explore & Feel</p>
+                <div class="illustration-grid">
+                    <div class="illus-box"><img src="picture/spring1.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/spring2.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/spring3.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/spring4.jpg" alt="art"></div>
+                </div>
+            </a>
+
+            <!-- Card 2: Project Style -->
+            <a href="Project.html" class="card">
+                <div class="doodle-dot" style="top: 20px; left: 45%;"></div>
+                <div class="doodle-dot" style="top: 20px; left: 55%;"></div>
+                <h2 class="card-title">Project</h2>
+                <p class="card-subtitle">unspoken freedom</p>
+                <div class="illustration-grid">
+                    <div class="illus-box"><img src="picture/cloud1.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/cloud2.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/cloud3.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/cloud4.jpg" alt="art"></div>
+                </div>
+            </a>
+
+            <!-- Card 3: Share Style -->
+            <a href="Share.html" class="card">
+                <div class="doodle-dot" style="left: 50%;"></div>
+                <div class="doodle-dot" style="top: 25px; left: 45%;"></div>
+                <div class="doodle-dot" style="top: 25px; left: 55%;"></div>
+                <h2 class="card-title">Share</h2>
+                <p class="card-subtitle">softening moment</p>
+                <div class="illustration-grid">
+                    <div class="illus-box"><img src="picture/relaxing1.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/relaxing2.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/relaxing3.jpg" alt="art"></div>
+                    <div class="illus-box"><img src="picture/relaxing4.jpg" alt="art"></div>
+                </div>
+            </a>
+        </section>
+
+        <footer>
+            <div>hollow.com</div>
+            <div class="social-links">
+                <a href="javascript:void(0)" class="qr-trigger"><i class="far fa-paper-plane"></i></a>
+               
+        
+            </div>
+        </footer>
+
+        <!-- 二维码弹窗 -->
+        <div class="qr-modal" id="qrModal">
+            <div class="close-qr">&times;</div>
+            <div class="qr-content">
+                <img src="picture/qr.jpg" alt="QR Code">
+                <p>Follow my journey</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const qrTrigger = document.querySelector('.qr-trigger');
+        const qrModal = document.getElementById('qrModal');
+        const closeQr = document.querySelector('.close-qr');
+
+        qrTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            qrModal.classList.add('active');
+        });
+
+        closeQr.addEventListener('click', () => {
+            qrModal.classList.remove('active');
+        });
+
+        qrModal.addEventListener('click', (e) => {
+            if (e.target === qrModal) {
+                qrModal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

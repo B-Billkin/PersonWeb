@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow Portfolio - Test</title>
+    <!-- 引入手写体 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 1. 整体布局与结构 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 背景：柔和水彩效果 */
+        .watercolor-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 209, 220, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(173, 216, 230, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(152, 251, 152, 0.4) 0%, transparent 50%);
+            filter: blur(80px);
+        }
+
+        /* 顶部导航栏 */
+        header {
+            width: 100%;
+            height: 60px;
+            background-color: #000000;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            font-family: 'Lobster', cursive;
+            font-size: 32px;
+            color: #FFFFFF;
+            transform: rotate(-5deg);
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        .search-container {
+            width: 180px;
+            height: 32px;
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            margin-left: 30px;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .search-container input::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            color: #000;
+            font-size: 14px;
+        }
+
+        /* 中间内容区 */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            width: 320px;
+            height: 360px;
+            background-color: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            font-family: 'Lobster', cursive;
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .grid-item {
+            width: 131px; /* 稍微调整以适应 padding */
+            height: 131px;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #F5F5F5;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+        }
+
+        /* 具体的插画背景模拟 */
+        .bg-beige { background-color: #F5F5F5; }
+        .bg-dark-blue { background-color: #1A237E; }
+
+        /* 页脚 */
+        footer {
+            width: 100%;
+            height: 60px;
+            background-color: #000000;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .footer-text {
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 300;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons i {
+            color: #FFFFFF;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .social-icons i:hover {
+            opacity: 0.7;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 1024px) {
+            main {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="watercolor-overlay"></div>
+
+    <header>
+        <div class="brand-logo">hollow</div>
+        <nav>
+            <a href="#">Person</a>
+            <a href="#">Reviews</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Diary/Log</a>
+            <div class="search-container">
+                <input type="text" placeholder="Search…">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 卡片 1 -->
+        <div class="card">
+            <div class="card-header">Fontee</div>
+            <div class="grid-container">
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=200&q=80" alt="Plant Illustration"></div>
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=200&q=80" alt="Portrait"></div>
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=200&q=80" alt="Red Hat Woman"></div>
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=200&q=80" alt="Blue Flowers"></div>
+            </div>
+        </div>
+
+        <!-- 卡片 2 -->
+        <div class="card">
+            <div class="card-header">Fontee</div>
+            <div class="grid-container">
+                <div class="grid-item bg-dark-blue"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200&q=80" alt="Waves"></div>
+                <div class="grid-item bg-dark-blue"><img src="https://images.unsplash.com/photo-1574169208507-84376144848b?w=200&q=80" alt="Orange Abstract"></div>
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=200&q=80" alt="Green Curves"></div>
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=200&q=80" alt="Plant Combo"></div>
+            </div>
+        </div>
+
+        <!-- 卡片 3 -->
+        <div class="card">
+            <div class="card-header">Term</div>
+            <div class="grid-container">
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=200&q=80" alt="Colorful Abstract"></div>
+                <div class="grid-item bg-dark-blue"><img src="https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=200&q=80" alt="Hat Person"></div>
+                <div class="grid-item bg-beige"><img src="https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?w=200&q=80" alt="Colorful Plant"></div>
+                <div class="grid-item bg-dark-blue"><img src="https://images.unsplash.com/photo-1533158326339-7f3cf2404354?w=200&q=80" alt="Long Hair Woman"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-text">Copyright 2024 hollow. All rights reserved.</div>
+        <div class="social-icons">
+            <i class="far fa-envelope"></i>
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-twitter"></i>
+        </div>
+    </footer>
+</body>
+</html>

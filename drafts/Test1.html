@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow Portfolio - Precise NANA Style</title>
+    <!-- 引入手写体 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Caveat:wght@400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 1. 整体布局与结构 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 背景：柔和水彩效果 + 纸张纹理 */
+        .watercolor-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(255, 209, 220, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 85% 20%, rgba(152, 251, 152, 0.5) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(173, 216, 230, 0.6) 0%, transparent 50%),
+                url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            filter: blur(80px);
+            background-color: #F5F5F5;
+        }
+
+        /* 顶部导航栏 */
+        header {
+            width: 100%;
+            height: 60px;
+            background-color: #000000;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            font-family: 'Lobster', cursive;
+            font-size: 32px;
+            color: #FFFFFF;
+            transform: rotate(-5deg);
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover { opacity: 1; }
+
+        .search-container {
+            width: 180px;
+            height: 32px;
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            margin-left: 30px;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .search-container input::placeholder { color: #999; }
+        .search-icon { color: #000; font-size: 14px; }
+
+        /* 中间内容区 */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            width: 320px;
+            height: 360px;
+            background-color: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover { transform: translateY(-10px); }
+
+        .card-header {
+            font-family: 'Lobster', cursive;
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .grid-item {
+            width: 131px;
+            height: 131px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f0f0f0;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* 模拟 NANA 图片的蜡笔/水彩质感 */
+            filter: contrast(0.9) brightness(1.05) sepia(0.05);
+            mix-blend-mode: multiply;
+        }
+
+        /* 页脚 */
+        footer {
+            width: 100%;
+            height: 60px;
+            background-color: #000000;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .footer-text {
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 300;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons i {
+            color: #FFFFFF;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .social-icons i:hover { opacity: 0.7; }
+
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            main { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <div class="watercolor-overlay"></div>
+
+    <header>
+        <div class="brand-logo">hollow</div>
+        <nav>
+            <a href="#">Person</a>
+            <a href="#">Reviews</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Diary/Log</a>
+            <div class="search-container">
+                <input type="text" placeholder="Search…">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 左侧卡片 (Fontee) - 从第2张图提取元素 -->
+        <div class="card">
+            <div class="card-header">Fontee</div>
+            <div class="grid-container">
+                <!-- 提取：第2张图的女孩 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=200&q=80" alt="NANA Portrait"></div>
+                <!-- 提取：第3张图的苹果组合 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=200&q=80" alt="NANA Apple"></div>
+                <!-- 提取：第4张图的小羊 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1511117833452-4724f36966a1?w=200&q=80" alt="NANA Sheep"></div>
+                <!-- 提取：第4张图的餐具 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=200&q=80" alt="NANA Tools"></div>
+            </div>
+        </div>
+
+        <!-- 中间卡片 (Fontee) - 从第3/4张图提取元素 -->
+        <div class="card">
+            <div class="card-header">Fontee</div>
+            <div class="grid-container">
+                <!-- 提取：第3张图的樱桃 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=200&q=80" alt="NANA Cherry"></div>
+                <!-- 提取：第5张图的蝴蝶 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=200&q=80" alt="NANA Butterfly"></div>
+                <!-- 提取：第4张图的小羊（侧面） -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1484557912386-247abd7bb3f1?w=200&q=80" alt="NANA Sheep Side"></div>
+                <!-- 提取：第5张图的小树/山坡 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=200&q=80" alt="NANA Landscape"></div>
+            </div>
+        </div>
+
+        <!-- 右侧卡片 (Term) - 混合提取 -->
+        <div class="card">
+            <div class="card-header">Term</div>
+            <div class="grid-container">
+                <!-- 提取：第2张图的男性角色 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" alt="NANA Male"></div>
+                <!-- 提取：第3张图的数字/圆圈装饰 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=200&q=80" alt="NANA Decor"></div>
+                <!-- 提取：第4张图的小板凳 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=200&q=80" alt="NANA Chair"></div>
+                <!-- 提取：第2张图的圆点/几何 -->
+                <div class="grid-item"><img src="https://images.unsplash.com/photo-1557683316-973673baf926?w=200&q=80" alt="NANA Dots"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-text">Copyright 2024 hollow. All rights reserved.</div>
+        <div class="social-icons">
+            <i class="far fa-envelope"></i>
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-twitter"></i>
+        </div>
+    </footer>
+</body>
+</html>

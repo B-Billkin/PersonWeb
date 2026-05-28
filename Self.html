@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow's Self</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #F5F5F5;
+            --main-text: #4a2c2a;
+            --accent-pink: #FFD1DC;
+            --accent-green: #98FB98;
+            --accent-blue: #ADD8E6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'ZCOOL KuaiLe', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--main-text);
+            overflow-x: hidden;
+        }
+
+        .watercolor-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('picture/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #F5F5F5;
+        }
+
+        .main-container {
+            width: 95%;
+            max-width: 1400px;
+            background-color: #FFF9E5; /* 暖黄色不透明 */
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.25);
+            margin: 40px 0;
+            min-height: 80vh;
+        }
+
+        header {
+            padding: 16px 64px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            background: rgba(26, 26, 26, 1);
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(255,182,193,0.5);
+            line-height: 1;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00F0FF;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        /* 点亮 SELF 导航 */
+        nav ul li:nth-child(1) a {
+            color: #00F0FF;
+            opacity: 1;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
+        }
+
+        .content-section {
+            padding: 80px 100px; 
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* 黄金比例分割 */
+            gap: 80px; 
+            flex-grow: 1;
+            align-items: center;
+        }
+
+        /* 左侧文字区域 */
+        .intro-text-box {
+            text-align: left;
+        }
+
+        .intro-name {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 3.5rem;
+            color: var(--main-text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .intro-name::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, #00F0FF, transparent);
+        }
+
+        .intro-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #008899;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .intro-detail {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .intro-detail p {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .intro-detail p::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: #00F0FF;
+            font-weight: bold;
+        }
+
+        /* 成就展示块 */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            border-color: #00F0FF;
+        }
+
+        .stat-value {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            color: #00F0FF;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* 右侧艺术装饰 */
+        .intro-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .visual-circle {
+            width: 400px;
+            height: 400px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            border: 8px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .visual-circle img {
+            width: 110%;
+            height: 110%;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+            opacity: 0.8;
+            filter: sepia(0.2);
+        }
+
+        .visual-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+            background: #1a1a1a;
+            color: #00F0FF;
+            padding: 15px 25px;
+            border-radius: 40px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: rotate(5deg);
+        }
+
+        @media (max-width: 1100px) {
+            .content-section { grid-template-columns: 1fr; padding: 60px; }
+            .intro-visual { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 40px 30px; flex-direction: column; gap: 30px; }
+            .logo { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="watercolor-bg"></div>
+
+    <div class="main-container">
+        <header>
+            <a href="PWeb.html" class="logo">Hollow</a>
+            <nav>
+                <ul>
+                    <li><a href="Self.html">SELF</a></li>
+                    <li><a href="Project.html">PROJECT</a></li>
+                    <li><a href="Share.html">SHARE</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="content-section">
+            <!-- 左侧内容 -->
+            <div class="intro-text-box">
+                <h1 class="intro-name">万紫婷 Hollow</h1>
+                <h2 class="intro-title">"Data Magician" specializing in AI Training</h2>
+                
+                <div class="intro-detail">
+                    <p><strong>专业背景：</strong>2年AI领域深耕经验，专注于 SFT 微调与 RAG 知识检索增强系统的构建。</p>
+                    <p><strong>核心能力：</strong>擅长大规模数据治理、模型性能优化及跨领域技术的创新性整合。</p>
+                    <p><strong>落地理念：</strong>坚信“技术要落地”，擅长用可视化工具拆解复杂问题，将艺术感融入模型训练。</p>
+                </div>
+
+                <div class="achievement-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">+50%</span>
+                        <span class="stat-label">文生图项目效率提升</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">92%</span>
+                        <span class="stat-label">TTS 情感标注满意度</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧视觉 -->
+            <div class="intro-visual">
+                <div class="visual-circle">
+                    <img src="picture/spring4.jpg" alt="Artistic Profile">
+                </div>
+                <div class="visual-badge">AI Trainer</div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

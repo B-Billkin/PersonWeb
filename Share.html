@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow's Share</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #F5F5F5;
+            --main-text: #4a2c2a;
+            --accent-pink: #FFD1DC;
+            --accent-green: #98FB98;
+            --accent-blue: #ADD8E6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'ZCOOL KuaiLe', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--main-text);
+            overflow-x: hidden;
+        }
+
+        .watercolor-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('picture/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #F5F5F5;
+        }
+
+        .main-container {
+            width: 95%;
+            max-width: 1400px;
+            background-color: #FFF9E5; /* 暖黄色不透明 */
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.25);
+            margin: 40px 0;
+            min-height: 80vh;
+        }
+
+        header {
+            padding: 16px 64px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            background: rgba(26, 26, 26, 1);
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(255,182,193,0.5);
+            line-height: 1;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00F0FF;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        /* 点亮 SHARE 导航 */
+        nav ul li:nth-child(3) a {
+            color: #00F0FF;
+            opacity: 1;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
+        }
+
+        .content-section {
+            padding: 80px 64px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .share-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .share-header h1 {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 3rem;
+            color: var(--main-text);
+            margin-bottom: 10px;
+        }
+
+        .share-header p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #888;
+        }
+
+        .share-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 350px); /* 调整为双列 */
+            gap: 60px; /* 稍微增加间距，让双列布局更舒展 */
+            justify-content: center;
+        }
+
+        .share-card {
+            background: #fff;
+            border-radius: 40px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .share-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+            border-color: #00F0FF;
+        }
+
+        .icon-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            transition: all 0.5s;
+            background: #fdfdfd;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        /* 柔化图标配色，统一视觉语言 */
+        .xhs-card .icon-box i { color: #ff4d6d; }
+        .feishu-card .icon-box i { color: #4361ee; }
+        .ppt-card .icon-box i { color: #f77f00; }
+
+        .share-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+            background: #fff;
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .card-title {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 1.4rem;
+            color: var(--main-text);
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #666;
+            margin-bottom: 30px;
+            flex-grow: 1;
+            padding: 0 10px;
+        }
+
+        .visit-btn {
+            background: rgba(26, 26, 26, 0.05);
+            color: var(--main-text);
+            padding: 10px 32px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            transition: all 0.4s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .share-card:hover .visit-btn {
+            background: #1a1a1a;
+            color: #00F0FF;
+            border-color: #1a1a1a;
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+        }
+
+        @media (max-width: 1200px) {
+            .share-grid { grid-template-columns: repeat(2, 350px); }
+        }
+        @media (max-width: 768px) {
+            .share-grid { grid-template-columns: 1fr; }
+            .share-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="watercolor-bg"></div>
+
+    <div class="main-container">
+        <header>
+            <a href="PWeb.html" class="logo">Hollow</a>
+            <nav>
+                <ul>
+                    <li><a href="Self.html">SELF</a></li>
+                    <li><a href="Project.html">PROJECT</a></li>
+                    <li><a href="Share.html">SHARE</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="content-section">
+            <div class="share-header">
+                <h1>Moments & Insights</h1>
+                <p>Sharing my AI journey and creative thoughts</p>
+            </div>
+
+            <div class="share-grid">
+                <!-- 小红书 -->
+                <a href="https://xhslink.com/m/5njHMPAznGW" target="_blank" class="share-card xhs-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-note-sticky"></i>
+                    </div>
+                    <h3 class="card-title">小红书</h3>
+                    <p class="card-desc">记录 AI 训练师所理解的大模型。</p>
+                    <span class="visit-btn">立即前往</span>
+                </a>
+
+                <!-- 硅基时代 PPT -->
+                <a href="picture/Silicon Era.pptx" download class="share-card ppt-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-file-powerpoint"></i>
+                    </div>
+                    <h3 class="card-title">硅基时代 PPT</h3>
+                    <p class="card-desc">探索 Silicon Era 硅基时代人类文明重构之旅。</p>
+                    <span class="visit-btn">下载</span>
+                </a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

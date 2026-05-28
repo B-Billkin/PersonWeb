@@ -6,8 +6,7 @@ Hollow 的个人网站，静态 HTML 页面，可直接部署到 GitHub Pages。
 
 | 文件 | 说明 |
 |------|------|
-| `index.html` | 首页入口（糖果风格导航） |
-| `PWeb.html` | 作品集主页 |
+| `index.html` | 首页（作品集主页） |
 | `Self.html` | 个人介绍 |
 | `Project.html` | 项目展示 |
 | `Share.html` | 分享与资源 |
